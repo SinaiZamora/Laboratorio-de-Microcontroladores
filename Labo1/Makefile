@@ -5,7 +5,7 @@ LD=sdcc
 CFLAGS=-I. -I/usr/local/share/sdcc/non-free/include
 TARGET=tombola
 
-SRCS = tombola.c
+SRCS = tombfor.c
 
 all:
 	${CC} --use-non-free ${FAMILY} ${MCU} ${CFLAGS} -o ${TARGET} ${SRCS}

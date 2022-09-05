@@ -1,6 +1,6 @@
 gplink-1.4.0 #1107 (Apr  3 2018)
 Copyright (c) 1998-2014 gputils project
-Listing File Generated: 9-2-2022  14:51:34
+Listing File Generated: 9-4-2022  15:50:29
  
  
 Address  Value    Disassembly              Source
@@ -11,7 +11,7 @@ Address  Value    Disassembly              Source
                                            ;--------------------------------------------------------
                                            ; PIC port for the 14-bit core
                                            ;--------------------------------------------------------
-                                           ;	.file	"tombola.c"
+                                           ;	.file	"tom.c"
                                            	list	p=12f675
                                            	radix dec
                                            	include "p12f675.inc"
@@ -32,7 +32,6 @@ Address  Value    Disassembly              Source
                                            ;--------------------------------------------------------
                                            ; external declarations
                                            ;--------------------------------------------------------
-                                           	extern	__moduint
                                            	extern	_TRISIO
                                            	extern	_GPIO
                                            	extern	_GPIObits
@@ -87,15 +86,8 @@ Address  Value    Disassembly              Source
                                            ;--------------------------------------------------------
                                            ; compiler-defined variables
                                            ;--------------------------------------------------------
-                                           UDL_tombola_0	udata
+                                           UDL_tom_0	udata
                                            r0x1008	res	1
-                                           r0x1009	res	1
-                                           r0x100A	res	1
-                                           r0x100B	res	1
-                                           r0x100D	res	1
-                                           r0x100C	res	1
-                                           r0x100E	res	1
-                                           r0x100F	res	1
                                            r0x1001	res	1
                                            r0x1000	res	1
                                            r0x1002	res	1
@@ -104,8 +96,6 @@ Address  Value    Disassembly              Source
                                            r0x1005	res	1
                                            r0x1006	res	1
                                            r0x1007	res	1
-                                           _main_counter_65537_4	res	2
-                                           _main_bolas_65537_4	res	2
                                            ;--------------------------------------------------------
                                            ; initialized data
                                            ;--------------------------------------------------------
@@ -126,134 +116,78 @@ Address  Value    Disassembly              Source
                                            ;--------------------------------------------------------
                                            ; code
                                            ;--------------------------------------------------------
-                                           code_tombola	code
+                                           code_tom	code
                                            ;***
                                            ;  pBlock Stats: dbName = M
                                            ;***
                                            ;has an exit
                                            ;functions called:
-                                           ;   __moduint
                                            ;   _delay
-                                           ;   __moduint
                                            ;   _delay
-                                           ;11 compiler assigned registers:
+                                           ;   _delay
+                                           ;   _delay
+                                           ;2 compiler assigned registers:
                                            ;   r0x1008
-                                           ;   r0x1009
-                                           ;   r0x100A
-                                           ;   r0x100B
-                                           ;   STK02
-                                           ;   STK01
                                            ;   STK00
-                                           ;   r0x100C
-                                           ;   r0x100D
-                                           ;   r0x100E
-                                           ;   r0x100F
                                            ;; Starting pCode block
-                                           S_tombola__main	code
+                                           S_tom__main	code
                                            _main:
                                            ; 2 exit points
-                                           ;	.line	10; "tombola.c"	TRISIO = 0b00101000; //GPIO3 y GPIO5 como entradas
-0000eb   3028     movlw   0x28             	MOVLW	0x28
-0000ec   1683     bsf     0x03, 0x5        	BANKSEL	_TRISIO
-0000ed   0085     movwf   0x05             	MOVWF	_TRISIO
-                                           ;	.line	11; "tombola.c"	GPIO = 0b00000000; //todos los GPIOS comienzan en bajo
-0000ee   1283     bcf     0x03, 0x5        	BANKSEL	_GPIO
-0000ef   0185     clrf    0x05             	CLRF	_GPIO
-                                           ;	.line	20; "tombola.c"	while (1){
-0000f0   01b0     clrf    0x30             	CLRF	r0x1008
-0000f1   01b1     clrf    0x31             	CLRF	r0x1009
-0000f2   01b2     clrf    0x32             	CLRF	r0x100A
-0000f3   01b3     clrf    0x33             	CLRF	r0x100B
-                                           _00113_DS_:
-                                           ;	.line	22; "tombola.c"	counter ++;
-0000f4   0ab2     incf    0x32, 0x1        	INCF	r0x100A,F
-0000f5   1903     btfsc   0x03, 0x2        	BTFSC	STATUS,2
-0000f6   0ab3     incf    0x33, 0x1        	INCF	r0x100B,F
-                                           ;	.line	23; "tombola.c"	random = counter % 10;
-0000f7   300a     movlw   0x0a             	MOVLW	0x0a
-0000f8   00ad     movwf   0x2d             	MOVWF	STK02
-0000f9   3000     movlw   0x00             	MOVLW	0x00
-0000fa   00ae     movwf   0x2e             	MOVWF	STK01
-0000fb   0832     movf    0x32, 0x0        	MOVF	r0x100A,W
-0000fc   00af     movwf   0x2f             	MOVWF	STK00
-0000fd   0833     movf    0x33, 0x0        	MOVF	r0x100B,W
-                                           	PAGESEL	__moduint
-0000fe   209e     call    0x009e           	CALL	__moduint
-                                           	PAGESEL	$
-0000ff   00b5     movwf   0x35             	MOVWF	r0x100C
-000100   082f     movf    0x2f, 0x0        	MOVF	STK00,W
-000101   00b4     movwf   0x34             	MOVWF	r0x100D
-                                           ;	.line	26; "tombola.c"	if (GPIO3 == 1){
-000102   01b6     clrf    0x36             	CLRF	r0x100E
-000103   1283     bcf     0x03, 0x5        	BANKSEL	_GPIObits
-000104   1985     btfsc   0x05, 0x3        	BTFSC	_GPIObits,3
-000105   0ab6     incf    0x36, 0x1        	INCF	r0x100E,F
-000106   0836     movf    0x36, 0x0        	MOVF	r0x100E,W
-000107   3a01     xorlw   0x01             	XORLW	0x01
-000108   1d03     btfss   0x03, 0x2        	BTFSS	STATUS,2
-000109   292a     goto    0x012a           	GOTO	_00109_DS_
-                                           ;	.line	28; "tombola.c"	bolas++;
-00010a   0ab0     incf    0x30, 0x1        	INCF	r0x1008,F
-00010b   1903     btfsc   0x03, 0x2        	BTFSC	STATUS,2
-00010c   0ab1     incf    0x31, 0x1        	INCF	r0x1009,F
-                                           ;	.line	30; "tombola.c"	for (unsigned int num = 0; num < 10; num++){
-00010d   01b6     clrf    0x36             	CLRF	r0x100E
-00010e   01b7     clrf    0x37             	CLRF	r0x100F
-                                           ;;unsigned compare: left < lit(0xA=10), size=2
-                                           _00116_DS_:
-00010f   3000     movlw   0x00             	MOVLW	0x00
-000110   0237     subwf   0x37, 0x0        	SUBWF	r0x100F,W
-000111   1d03     btfss   0x03, 0x2        	BTFSS	STATUS,2
-000112   2915     goto    0x0115           	GOTO	_00145_DS_
-000113   300a     movlw   0x0a             	MOVLW	0x0a
-000114   0236     subwf   0x36, 0x0        	SUBWF	r0x100E,W
-                                           _00145_DS_:
-000115   1803     btfsc   0x03, 0x0        	BTFSC	STATUS,0
-000116   292a     goto    0x012a           	GOTO	_00109_DS_
-                                           ;;genSkipc:3307: created from rifx:0x7ffe202025d0
-                                           ;	.line	32; "tombola.c"	if(random == num){
-000117   0836     movf    0x36, 0x0        	MOVF	r0x100E,W
-000118   0634     xorwf   0x34, 0x0        	XORWF	r0x100D,W
-000119   1d03     btfss   0x03, 0x2        	BTFSS	STATUS,2
-00011a   2926     goto    0x0126           	GOTO	_00117_DS_
-00011b   0837     movf    0x37, 0x0        	MOVF	r0x100F,W
-00011c   0635     xorwf   0x35, 0x0        	XORWF	r0x100C,W
-00011d   1d03     btfss   0x03, 0x2        	BTFSS	STATUS,2
-00011e   2926     goto    0x0126           	GOTO	_00117_DS_
-                                           ;	.line	33; "tombola.c"	GPIO = num;
-00011f   0836     movf    0x36, 0x0        	MOVF	r0x100E,W
-000120   1283     bcf     0x03, 0x5        	BANKSEL	_GPIO
-000121   0085     movwf   0x05             	MOVWF	_GPIO
-                                           ;	.line	34; "tombola.c"	delay(time);}
-000122   300a     movlw   0x0a             	MOVLW	0x0a
-000123   00af     movwf   0x2f             	MOVWF	STK00
-000124   3000     movlw   0x00             	MOVLW	0x00
+                                           ;	.line	10; "tom.c"	TRISIO = 0b00101000; //GPIO3 y GPIO5 como entradas
+0000f9   3028     movlw   0x28             	MOVLW	0x28
+0000fa   1683     bsf     0x03, 0x5        	BANKSEL	_TRISIO
+0000fb   0085     movwf   0x05             	MOVWF	_TRISIO
+                                           ;	.line	11; "tom.c"	GPIO = 0b00000000; //todos los GPIOS comienzan en bajo
+0000fc   1283     bcf     0x03, 0x5        	BANKSEL	_GPIO
+0000fd   0185     clrf    0x05             	CLRF	_GPIO
+                                           _00108_DS_:
+                                           ;	.line	21; "tom.c"	if (GPIO3 == 1)
+0000fe   01bc     clrf    0x3c             	CLRF	r0x1008
+0000ff   1283     bcf     0x03, 0x5        	BANKSEL	_GPIObits
+000100   1985     btfsc   0x05, 0x3        	BTFSC	_GPIObits,3
+000101   0abc     incf    0x3c, 0x1        	INCF	r0x1008,F
+000102   083c     movf    0x3c, 0x0        	MOVF	r0x1008,W
+000103   3a01     xorlw   0x01             	XORLW	0x01
+000104   1d03     btfss   0x03, 0x2        	BTFSS	STATUS,2
+000105   28fe     goto    0x00fe           	GOTO	_00108_DS_
+                                           ;	.line	24; "tom.c"	GPIO5 = 1;
+000106   1685     bsf     0x05, 0x5        	BSF	_GPIObits,5
+                                           ;	.line	25; "tom.c"	GPIO0 = 0;
+000107   1005     bcf     0x05, 0x0        	BCF	_GPIObits,0
+                                           ;	.line	26; "tom.c"	GPIO1 = 0;
+000108   1085     bcf     0x05, 0x1        	BCF	_GPIObits,1
+                                           ;	.line	27; "tom.c"	GPIO2 = 1;
+000109   1505     bsf     0x05, 0x2        	BSF	_GPIObits,2
+                                           ;	.line	28; "tom.c"	GPIO4 = 0;
+00010a   1205     bcf     0x05, 0x4        	BCF	_GPIObits,4
+                                           ;	.line	29; "tom.c"	delay(time);
+00010b   3064     movlw   0x64             	MOVLW	0x64
+00010c   00af     movwf   0x2f             	MOVWF	STK00
+00010d   3000     movlw   0x00             	MOVLW	0x00
                                            	PAGESEL	_delay
-000125   216b     call    0x016b           	CALL	_delay
+00010e   20d2     call    0x00d2           	CALL	_delay
                                            	PAGESEL	$
-                                           _00117_DS_:
-                                           ;	.line	30; "tombola.c"	for (unsigned int num = 0; num < 10; num++){
-000126   0ab6     incf    0x36, 0x1        	INCF	r0x100E,F
-000127   1903     btfsc   0x03, 0x2        	BTFSC	STATUS,2
-000128   0ab7     incf    0x37, 0x1        	INCF	r0x100F,F
-000129   290f     goto    0x010f           	GOTO	_00116_DS_
-                                           _00109_DS_:
-                                           ;	.line	40; "tombola.c"	if (bolas == 16)
-00012a   0830     movf    0x30, 0x0        	MOVF	r0x1008,W
-00012b   3a10     xorlw   0x10             	XORLW	0x10
-00012c   1d03     btfss   0x03, 0x2        	BTFSS	STATUS,2
-00012d   28f4     goto    0x00f4           	GOTO	_00113_DS_
-00012e   0831     movf    0x31, 0x0        	MOVF	r0x1009,W
-00012f   3a00     xorlw   0x00             	XORLW	0x00
-000130   1d03     btfss   0x03, 0x2        	BTFSS	STATUS,2
-000131   28f4     goto    0x00f4           	GOTO	_00113_DS_
-                                           ;	.line	42; "tombola.c"	GPIO = 9;
-000132   3009     movlw   0x09             	MOVLW	0x09
-000133   1283     bcf     0x03, 0x5        	BANKSEL	_GPIO
-000134   0085     movwf   0x05             	MOVWF	_GPIO
-000135   28f4     goto    0x00f4           	GOTO	_00113_DS_
-                                           ;	.line	47; "tombola.c"	}
-000136   0008     return                   	RETURN	
+                                           ;	.line	30; "tom.c"	GPIO5 = 0;
+00010f   1283     bcf     0x03, 0x5        	BANKSEL	_GPIObits
+000110   1285     bcf     0x05, 0x5        	BCF	_GPIObits,5
+                                           ;	.line	31; "tom.c"	GPIO0 = 1;
+000111   1405     bsf     0x05, 0x0        	BSF	_GPIObits,0
+                                           ;	.line	32; "tom.c"	GPIO1 = 1;
+000112   1485     bsf     0x05, 0x1        	BSF	_GPIObits,1
+                                           ;	.line	33; "tom.c"	GPIO2 = 1;
+000113   1505     bsf     0x05, 0x2        	BSF	_GPIObits,2
+                                           ;	.line	34; "tom.c"	GPIO4 = 0;
+000114   1205     bcf     0x05, 0x4        	BCF	_GPIObits,4
+                                           ;	.line	35; "tom.c"	delay(time);
+000115   3064     movlw   0x64             	MOVLW	0x64
+000116   00af     movwf   0x2f             	MOVWF	STK00
+000117   3000     movlw   0x00             	MOVLW	0x00
+                                           	PAGESEL	_delay
+000118   20d2     call    0x00d2           	CALL	_delay
+                                           	PAGESEL	$
+000119   28fe     goto    0x00fe           	GOTO	_00108_DS_
+                                           ;	.line	40; "tom.c"	}
+00011a   0008     return                   	RETURN	
                                            ; exit point of _main
                                            
                                            ;***
@@ -271,62 +205,62 @@ Address  Value    Disassembly              Source
                                            ;   r0x1006
                                            ;   r0x1007
                                            ;; Starting pCode block
-                                           S_tombola__delay	code
+                                           S_tom__delay	code
                                            _delay:
                                            ; 2 exit points
-                                           ;	.line	49; "tombola.c"	void delay(unsigned int tiempo)
-00016b   00b9     movwf   0x39             	MOVWF	r0x1000
-00016c   082f     movf    0x2f, 0x0        	MOVF	STK00,W
-00016d   00b8     movwf   0x38             	MOVWF	r0x1001
-                                           ;	.line	54; "tombola.c"	for(i=0;i<tiempo;i++)
-00016e   01ba     clrf    0x3a             	CLRF	r0x1002
-00016f   01bb     clrf    0x3b             	CLRF	r0x1003
-                                           _00156_DS_:
-000170   0839     movf    0x39, 0x0        	MOVF	r0x1000,W
-000171   023b     subwf   0x3b, 0x0        	SUBWF	r0x1003,W
-000172   1d03     btfss   0x03, 0x2        	BTFSS	STATUS,2
-000173   2976     goto    0x0176           	GOTO	_00177_DS_
-000174   0838     movf    0x38, 0x0        	MOVF	r0x1001,W
-000175   023a     subwf   0x3a, 0x0        	SUBWF	r0x1002,W
-                                           _00177_DS_:
-000176   1803     btfsc   0x03, 0x0        	BTFSC	STATUS,0
-000177   2991     goto    0x0191           	GOTO	_00158_DS_
-                                           ;;genSkipc:3307: created from rifx:0x7ffe202025d0
-                                           ;	.line	55; "tombola.c"	for(j=0;j<1275;j++);
-000178   30fb     movlw   0xfb             	MOVLW	0xfb
-000179   00bc     movwf   0x3c             	MOVWF	r0x1004
-00017a   3004     movlw   0x04             	MOVLW	0x04
-00017b   00bd     movwf   0x3d             	MOVWF	r0x1005
-                                           _00154_DS_:
-00017c   30ff     movlw   0xff             	MOVLW	0xff
-00017d   073c     addwf   0x3c, 0x0        	ADDWF	r0x1004,W
-00017e   00be     movwf   0x3e             	MOVWF	r0x1006
-00017f   30ff     movlw   0xff             	MOVLW	0xff
-000180   00bf     movwf   0x3f             	MOVWF	r0x1007
-000181   083d     movf    0x3d, 0x0        	MOVF	r0x1005,W
-000182   1803     btfsc   0x03, 0x0        	BTFSC	STATUS,0
-000183   0f3d     incfsz  0x3d, 0x0        	INCFSZ	r0x1005,W
-000184   07bf     addwf   0x3f, 0x1        	ADDWF	r0x1007,F
-000185   083e     movf    0x3e, 0x0        	MOVF	r0x1006,W
-000186   00bc     movwf   0x3c             	MOVWF	r0x1004
-000187   083f     movf    0x3f, 0x0        	MOVF	r0x1007,W
-000188   00bd     movwf   0x3d             	MOVWF	r0x1005
-000189   083f     movf    0x3f, 0x0        	MOVF	r0x1007,W
-00018a   043e     iorwf   0x3e, 0x0        	IORWF	r0x1006,W
-00018b   1d03     btfss   0x03, 0x2        	BTFSS	STATUS,2
-00018c   297c     goto    0x017c           	GOTO	_00154_DS_
-                                           ;	.line	54; "tombola.c"	for(i=0;i<tiempo;i++)
-00018d   0aba     incf    0x3a, 0x1        	INCF	r0x1002,F
-00018e   1903     btfsc   0x03, 0x2        	BTFSC	STATUS,2
-00018f   0abb     incf    0x3b, 0x1        	INCF	r0x1003,F
-000190   2970     goto    0x0170           	GOTO	_00156_DS_
-                                           _00158_DS_:
-                                           ;	.line	56; "tombola.c"	}
-000191   0008     return                   	RETURN	
+                                           ;	.line	42; "tom.c"	void delay(unsigned int tiempo)
+0000d2   00be     movwf   0x3e             	MOVWF	r0x1000
+0000d3   082f     movf    0x2f, 0x0        	MOVF	STK00,W
+0000d4   00bd     movwf   0x3d             	MOVWF	r0x1001
+                                           ;	.line	47; "tom.c"	for(i=0;i<tiempo;i++)
+0000d5   01bf     clrf    0x3f             	CLRF	r0x1002
+0000d6   01c0     clrf    0x40             	CLRF	r0x1003
+                                           _00119_DS_:
+0000d7   083e     movf    0x3e, 0x0        	MOVF	r0x1000,W
+0000d8   0240     subwf   0x40, 0x0        	SUBWF	r0x1003,W
+0000d9   1d03     btfss   0x03, 0x2        	BTFSS	STATUS,2
+0000da   28dd     goto    0x00dd           	GOTO	_00140_DS_
+0000db   083d     movf    0x3d, 0x0        	MOVF	r0x1001,W
+0000dc   023f     subwf   0x3f, 0x0        	SUBWF	r0x1002,W
+                                           _00140_DS_:
+0000dd   1803     btfsc   0x03, 0x0        	BTFSC	STATUS,0
+0000de   28f8     goto    0x00f8           	GOTO	_00121_DS_
+                                           ;;genSkipc:3307: created from rifx:0x7fffa9df8100
+                                           ;	.line	48; "tom.c"	for(j=0;j<1275;j++);
+0000df   30fb     movlw   0xfb             	MOVLW	0xfb
+0000e0   00c1     movwf   0x41             	MOVWF	r0x1004
+0000e1   3004     movlw   0x04             	MOVLW	0x04
+0000e2   00c2     movwf   0x42             	MOVWF	r0x1005
+                                           _00117_DS_:
+0000e3   30ff     movlw   0xff             	MOVLW	0xff
+0000e4   0741     addwf   0x41, 0x0        	ADDWF	r0x1004,W
+0000e5   00c3     movwf   0x43             	MOVWF	r0x1006
+0000e6   30ff     movlw   0xff             	MOVLW	0xff
+0000e7   00c4     movwf   0x44             	MOVWF	r0x1007
+0000e8   0842     movf    0x42, 0x0        	MOVF	r0x1005,W
+0000e9   1803     btfsc   0x03, 0x0        	BTFSC	STATUS,0
+0000ea   0f42     incfsz  0x42, 0x0        	INCFSZ	r0x1005,W
+0000eb   07c4     addwf   0x44, 0x1        	ADDWF	r0x1007,F
+0000ec   0843     movf    0x43, 0x0        	MOVF	r0x1006,W
+0000ed   00c1     movwf   0x41             	MOVWF	r0x1004
+0000ee   0844     movf    0x44, 0x0        	MOVF	r0x1007,W
+0000ef   00c2     movwf   0x42             	MOVWF	r0x1005
+0000f0   0844     movf    0x44, 0x0        	MOVF	r0x1007,W
+0000f1   0443     iorwf   0x43, 0x0        	IORWF	r0x1006,W
+0000f2   1d03     btfss   0x03, 0x2        	BTFSS	STATUS,2
+0000f3   28e3     goto    0x00e3           	GOTO	_00117_DS_
+                                           ;	.line	47; "tom.c"	for(i=0;i<tiempo;i++)
+0000f4   0abf     incf    0x3f, 0x1        	INCF	r0x1002,F
+0000f5   1903     btfsc   0x03, 0x2        	BTFSC	STATUS,2
+0000f6   0ac0     incf    0x40, 0x1        	INCF	r0x1003,F
+0000f7   28d7     goto    0x00d7           	GOTO	_00119_DS_
+                                           _00121_DS_:
+                                           ;	.line	49; "tom.c"	}
+0000f8   0008     return                   	RETURN	
                                            ; exit point of _delay
                                            
                                            
                                            ;	code size estimation:
-                                           ;	  110+    9 =   119 instructions (  256 byte)
+                                           ;	   69+    8 =    77 instructions (  170 byte)
                                            
                                            	end
